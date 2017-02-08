@@ -1,0 +1,9 @@
+{% extends 'base.xhtml' %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+        You're logged in as {{ request.user }}<br/>
+    {% else %}
+        Please log in.
+    {% endif %}
+{% endblock %}

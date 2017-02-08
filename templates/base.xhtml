@@ -1,0 +1,44 @@
+{% load static %}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'strava_button.css' %}"/>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"/>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <title>Strava Club Challenge</title>
+    {% block extheader %}
+    {% endblock %}
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Strava Club Challenge</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if not request.user.is_authenticated %}
+                <li><a class="strava-badge- strava-badge-follow" href="{% url 'login' %}"><img
+                        src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" alt="Login with Strava"/></a></li>
+            {% else %}
+                <li><a href="{% url 'challenge_list' %}">Challenges</a></li>
+                <li><a href="{% url 'challenge_create' %}">Create challenge</a></li>
+                <li><a class="strava-badge- strava-badge-follow" href="{% url 'logout' %}"><img
+                        src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" alt="Logout"/></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
