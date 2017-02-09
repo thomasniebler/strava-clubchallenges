@@ -14,15 +14,18 @@
             <li class="collection-item">
                 {% if challenges %}
                     <table class="highlight">
-                        {% for challenge, progress in challenges %}
+                        {% for challenge, progress, participates in challenges %}
                             <tr>
                                 <td>Goal Distance:<br/>{{ challenge.goal_distance }} km</td>
                                 <td>Start:<br/>{{ challenge.start_date }}</td>
                                 <td>End:<br/>{{ challenge.end_date }}</td>
-                                <td>Your progress: {{ progress }}%
+                                <td>{% if participates %}Your progress: {{ progress }}%
                                     <div class="progress">
                                         <div class="determinate" style="width: {{ progress }}%"></div>
                                     </div>
+                                {% else %}
+                                    <a href="{% url 'challenge_join' challenge.id %}">Join</a>
+                                {% endif %}
                                 </td>
                                 <td><a href="{% url 'challenge_page' challenge.id %}">Info</a></td>
                             </tr>

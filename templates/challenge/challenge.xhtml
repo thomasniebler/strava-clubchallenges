@@ -10,5 +10,9 @@
     {{ challenge.goal_distance }}
 
     <h4>Participants</h4>
-    {{ challenge.participant.user }}
+    {% for participant in participants %}
+        {{ participant.participant.user }}<br/>
+        {{ participant.challenge.goal_distance }}<br/>
+        <a href="{% url 'challenge_leave' challenge_id=participant.challenge.id %}">Leave</a><br/><br/>
+    {% endfor %}
 {% endblock %}

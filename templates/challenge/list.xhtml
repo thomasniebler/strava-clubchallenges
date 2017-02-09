@@ -1,19 +1,49 @@
 {% extends 'base.xhtml' %}
 
 {% block content %}
-    <h1>List of Challenges</h1>
+    <h1>Challenges</h1>
 
+    <h2>My Challenges</h2>
     <table>
     <tr>
         <th>Zieldistanz in Kilometern</th>
+        <th>Start der Challenge</th>
         <th>Ende der Challenge</th>
+        <th>Club</th>
         <th>Fortschritt in Prozent</th>
     </tr>
     {% for challenge, progress in my_challenges %}
         <tr>
             <td>{{ challenge.goal_distance }}</td>
+            <td>{{ challenge.start_date }}</td>
             <td>{{ challenge.end_date }}</td>
-            <td {% if progress > 100 %}style="background-color:lightgreen"{% endif %}>{{ progress }}%</td>
+            <td>{{ challenge.club }}</td>
+            <td {% if progress > 100 %}style="background-color:lightgreen"{% endif %}>{{ progress }}%
+                <div class="progress">
+                    <div class="determinate" style="width: {{ progress }}%"></div>
+                </div>
+            </td>
+            <td><a href="{% url 'challenge_page' challenge.id %}">Info</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <h2>Other Challenges</h2>
+    <table>
+    <tr>
+        <th>Zieldistanz in Kilometern</th>
+        <th>Start der Challenge</th>
+        <th>Ende der Challenge</th>
+        <th>Club</th>
+        <th></th>
+    </tr>
+    {% for challenge in other_challenges %}
+        <tr>
+            <td>{{ challenge.goal_distance }}</td>
+            <td>{{ challenge.start_date }}</td>
+            <td>{{ challenge.end_date }}</td>
+            <td>{{ challenge.club }}</td>
+            <td><a href="{% url 'challenge_join' challenge_id=challenge.id %}">Join</a></td>
         </tr>
     {% endfor %}
     </table>

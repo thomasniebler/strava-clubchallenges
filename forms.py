@@ -1,10 +1,13 @@
-from django.forms import ModelForm, HiddenInput
+from django import forms
 
-from .models import Challenge
+from strava_club_challenge.models import Challenge
 
 
-class ChallengeForm(ModelForm):
+class ChallengeForm(forms.ModelForm):
     class Meta:
         model = Challenge
-        fields = ['goal_distance', 'start_date', 'end_date', 'club', 'participant']
-        widgets = {'participant': HiddenInput()}
+        fields = ['goal_distance', 'start_date', 'end_date', 'club']
+        widgets = {'goal_distance': forms.NumberInput(),
+                   'start_date': forms.DateInput(),
+                   'end_date': forms.DateInput(),
+                   'club': forms.TextInput()}
