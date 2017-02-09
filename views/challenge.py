@@ -1,6 +1,6 @@
 from django.http.response import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from stravauth.models import StravaToken
 
 from strava_club_challenge.forms import ChallengeForm
