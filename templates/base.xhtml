@@ -22,7 +22,7 @@
 <body>
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Strava Club Challenge</a>
+        <a href="{% url 'index' %}" class="brand-logo">Strava Club Challenge</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             {% if not request.user.is_authenticated %}
                 <li><a class="strava-badge- strava-badge-follow" href="{% url 'login' %}"><img

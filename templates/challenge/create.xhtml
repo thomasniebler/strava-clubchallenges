@@ -2,4 +2,12 @@
 
 {% block content %}
     <h1>Create Challenge</h1>
+
+    <h4>Todo: Select club</h4>
+
+    <form action="{% url 'challenge_create' %}" method="POST"/>
+    {% csrf_token %}
+    {{ challenge_form }}
+    <input type="submit"/>
+    </form>
 {% endblock %}

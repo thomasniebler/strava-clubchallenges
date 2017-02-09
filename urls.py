@@ -13,5 +13,6 @@ urlpatterns = [
                   url(r'^logout/$', views.logout, name='logout'),
 
                   url(r'^challenge/list$', views.challenge_list, name='challenge_list'),
-                  url(r'^challenge/create$', views.challenge_create, name='challenge_create')
+                  url(r'^challenge/create$', views.challenge_create, name='challenge_create'),
+                  url(r'^challenge/id/(?P<challenge_id>[0-9]+)$', views.challenge_page, name='challenge_page'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

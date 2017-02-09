@@ -2,8 +2,38 @@
 
 {% block content %}
     {% if request.user.is_authenticated %}
-        You're logged in as {{ request.user }}<br/>
+        <h1>Welcome, {{ request.user.firstname }}</h1>
+
+        Here you get an overview of all club challenges:
+
+        <ul class="collection with-header">
+        {% for club, challenges in clubs %}
+            <li class="collection-header avatar"><h4><img src="{{ club.profile_medium }}" class="circle"/><span
+                    class="title"> {{ club.name }}</span></h4></li>
+            <li class="collection-item">
+                {% if challenges %}
+                    <table class="highlight">
+                        {% for challenge, progress in challenges %}
+                            <tr>
+                                <td>Goal Distance:<br/>{{ challenge.goal_distance }} km</td>
+                                <td>Start:<br/>{{ challenge.start_date }}</td>
+                                <td>End:<br/>{{ challenge.end_date }}</td>
+                                <td>Your progress: {{ progress }}%
+                                    <div class="progress">
+                                        <div class="determinate" style="width: {{ progress }}%"></div>
+                                    </div>
+                                </td>
+                                <td><a href="{% url 'challenge_page' challenge.id %}">Info</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    No challenges for this club.
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
     {% else %}
-        Please log in.
+        <h1>Please log in.</h1>
     {% endif %}
 {% endblock %}
