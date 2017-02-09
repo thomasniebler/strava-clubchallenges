@@ -1,0 +1,14 @@
+{% extends 'base.xhtml' %}
+
+{% block content %}
+    <h1>Challenge Info</h1>
+
+    <h4>Club</h4>
+    {{ challenge.club }}
+
+    <h4>Goal distance</h4>
+    {{ challenge.goal_distance }}
+
+    <h4>Participants</h4>
+    {{ challenge.participant.user }}
+{% endblock %}
