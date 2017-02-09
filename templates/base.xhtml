@@ -1,13 +1,11 @@
 {% load static %}
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'strava_button.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"/>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"/>
     <!--Import Google Icon Font-->
@@ -20,25 +18,51 @@
     {% endblock %}
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper">
-        <a href="{% url 'index' %}" class="brand-logo">Strava Club Challenge</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            {% if not request.user.is_authenticated %}
-                <li><a class="strava-badge- strava-badge-follow" href="{% url 'login' %}"><img
-                        src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" alt="Login with Strava"/></a></li>
-            {% else %}
-                <li><a href="{% url 'challenge_list' %}">Challenges</a></li>
-                <li><a href="{% url 'challenge_create' %}">Create challenge</a></li>
-                <li><a class="strava-badge- strava-badge-follow" href="{% url 'logout' %}"><img
-                        src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" alt="Logout"/></a></li>
-            {% endif %}
-        </ul>
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{% url 'index' %}" class="brand-logo">Strava Club Challenge</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'login' %}"><img src="{% static 'img/connect_with_strava_small.png' %}"
+                                                         alt="Strava" alt="Login with Strava"/></a></li>
+                {% else %}
+                    <li><a href="{% url 'challenge_list' %}">Challenges</a></li>
+                    <li><a href="{% url 'challenge_create' %}">Create challenge</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
     </div>
-</nav>
-<div class="container">
-    {% block content %}
-    {% endblock %}
-</div>
+</main>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <img src="{% static 'img/powered_by_strava.png' %}"/>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="http://www.thomas-niebler.de">My Blog</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://twitter.com/ThomasNiebler">My Twitter</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://bitbucket.org/thoni">My BitBucket</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% comment %}
+            <div class="footer-copyright">
+                <div class="container">
+                    <span class="right">© 2017 Thomas Niebler</span>
+                </div>
+            </div>
+{% endcomment %}
+</footer>
 </body>
 </html>
