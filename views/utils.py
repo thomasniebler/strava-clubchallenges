@@ -1,3 +1,4 @@
+from django.utils import timezone
 from stravalib import Client
 from stravauth.models import StravaToken
 
@@ -33,3 +34,9 @@ def get_progress(user, challenge):
 
 def logged_in_user_participates_in(request, challenge):
     return len(Participation.objects.filter(challenge=challenge, participant=get_token(request.user))) > 0
+
+
+def can_join_challenge(request, challenge):
+    return not logged_in_user_participates_in(request, challenge) \
+           and challenge.start_date < timezone.now() \
+           and challenge.end_date > timezone.now()

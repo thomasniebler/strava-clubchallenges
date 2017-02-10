@@ -1,5 +1,6 @@
 from django.contrib.auth import logout as user_logout
 from django.shortcuts import render
+from django.utils import timezone
 from stravalib import Client
 
 from strava_club_challenge.models import Challenge
@@ -13,7 +14,8 @@ def index(request):
         client = Client(get_token(request.user).token)
         club_challenges = []
         for club in client.get_athlete_clubs():
-            soon_ending_challenges = Challenge.objects.order_by('end_date').filter(club=club.name)[:3]
+            soon_ending_challenges = Challenge.objects.order_by('end_date').filter(
+                start_date__lt=timezone.now()).filter(club=club.name)[:3]
             progresses = [get_progress(request.user, challenge) for challenge in soon_ending_challenges]
             participates = [logged_in_user_participates_in(request, challenge) for challenge in soon_ending_challenges]
             club_challenges.append((club, list(zip(soon_ending_challenges, progresses, participates))))
