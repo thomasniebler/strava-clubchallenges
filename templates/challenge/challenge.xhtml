@@ -9,10 +9,24 @@
     <h4>Goal distance</h4>
     {{ challenge.goal_distance }}
 
+    <h4>Leave Challenge</h4>
+    <a href="{% url 'challenge_leave' challenge_id=challenge.id %}">Leave</a>
+
     <h4>Participants</h4>
-    {% for participant in participants %}
-        {{ participant.participant.user }}<br/>
-        {{ participant.challenge.goal_distance }}<br/>
-        <a href="{% url 'challenge_leave' challenge_id=participant.challenge.id %}">Leave</a><br/><br/>
+    <table class="table">
+    <tr>
+        <th>Participant</th>
+        <th>Progress</th>
+    </tr>
+    {% for participant, progress in participants %}
+        <tr>
+            <td>{{ participant.participant.user.lastname }}</td>
+            <td>{{ progress }}%
+                <div class="progress">
+                    <div class="determinate" style="width: {{ progress }}%"></div>
+                </div>
+            </td>
+        </tr>
     {% endfor %}
+    </table>
 {% endblock %}

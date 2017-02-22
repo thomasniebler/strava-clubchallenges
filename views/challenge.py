@@ -67,7 +67,9 @@ def challenge_page(request, challenge_id):
         challenge = Challenge.objects.get(id=challenge_id)
         participants = list(Participation.objects.filter(challenge=challenge))
         context["challenge"] = challenge
-        context["participants"] = participants
+        context["participants"] = sorted(
+            zip(participants, [get_progress(participant.participant.user, challenge) for participant in participants]),
+            key=lambda x: x[1])
     except Challenge.DoesNotExist:
         raise Http404('Challenge does not exist')
     return render(request, 'challenge/challenge.xhtml', context=context)
