@@ -20,10 +20,11 @@
     </tr>
     {% for participant, progress in participants %}
         <tr>
-            <td>{{ participant.participant.user.lastname }}</td>
+            <td>{{ participant.participant.user }}</td>
             <td>{{ progress }}%
                 <div class="progress">
-                    <div class="determinate" style="width: {{ progress }}%"></div>
+                    <div class="determinate"
+                         style="width: {% if progress <= 100 %} {{ progress }} {% else %} 100 {% endif %}%"></div>
                 </div>
             </td>
         </tr>
