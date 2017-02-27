@@ -38,5 +38,8 @@ def logged_in_user_participates_in(request, challenge):
 
 def can_join_challenge(request, challenge):
     return not logged_in_user_participates_in(request, challenge) \
-           and challenge.start_date < timezone.now() \
-           and challenge.end_date > timezone.now()
+           and challenge.start_date < timezone.now() < challenge.end_date
+
+
+def get_athlete_data(user):
+    return Client(get_token(user).token).get_athlete()

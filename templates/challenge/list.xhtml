@@ -12,7 +12,7 @@
         <th>Club</th>
         <th>Fortschritt in Prozent</th>
     </tr>
-    {% for challenge, progress in my_challenges %}
+    {% for challenge, progress, joinable in my_challenges %}
         <tr>
             <td>{{ challenge.goal_distance }}</td>
             <td>{{ challenge.start_date }}</td>

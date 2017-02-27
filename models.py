@@ -4,6 +4,7 @@ from stravauth.models import StravaToken
 
 
 class Challenge(models.Model):
+    name = models.CharField(max_length=300)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     goal_distance = models.FloatField()
