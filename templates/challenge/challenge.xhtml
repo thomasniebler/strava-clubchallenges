@@ -2,14 +2,6 @@
 {% load tags %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <script language="JavaScript">
-                Materialize.toast('{{ message }}', 4000)
-            </script>
-        {% endfor %}
-    {% endif %}
-
     <div class="row">
     <div class="col s12"><h1>{{ challenge.name }}</h1></div>
     </div>
