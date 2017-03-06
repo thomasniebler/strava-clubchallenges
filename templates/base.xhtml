@@ -12,7 +12,9 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
     <title>Strava Club Challenge</title>
     {% block extheader %}
     {% endblock %}
@@ -25,10 +27,12 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% if not request.user.is_authenticated %}
                     <li><a href="{% url 'login' %}"><img src="{% static 'img/connect_with_strava_small.png' %}"
-                                                         alt="Strava" alt="Login with Strava"/></a></li>
+                                                         alt="Login with Strava"/></a></li>
                 {% else %}
-                    <li><a href="{% url 'challenge_list' %}">Challenges</a></li>
-                    <li><a href="{% url 'challenge_create' %}">Create challenge</a></li>
+                    <li><a href="{% url 'challenge_list' %}"><span class="material-icons">list</span> Challenges</a>
+                    </li>
+                    <li><a href="{% url 'challenge_create' %}"><span class="material-icons">create</span> Create
+                        challenge</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% endif %}
             </ul>

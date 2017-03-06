@@ -3,11 +3,16 @@
 {% block content %}
     <h1>Create Challenge</h1>
 
-    <h4>Todo: Select club</h4>
-
     <form action="{% url 'challenge_create' %}" method="POST"/>
     {% csrf_token %}
-    {{ challenge_form }}
-    <input type="submit"/>
+    <div class="row">
+    {% for field in challenge_form %}
+        <div class="col s3">{{ field.label }}{{ field }}</div>
+    {% endfor %}
+    </div>
+    <div class="row">
+    <div class="col s9">&nbsp;</div>
+    <div class="col s3"><input type="submit" class="waves-effect btn waves-light"/></div>
+    </div>
     </form>
 {% endblock %}

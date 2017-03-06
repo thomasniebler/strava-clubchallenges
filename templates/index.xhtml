@@ -16,10 +16,12 @@
                     <table class="highlight">
                         {% for challenge, progress, participates in challenges %}
                             <tr>
-                                <td>Goal Distance:<br/>{{ challenge.goal_distance }} km</td>
-                                <td>Start:<br/>{{ challenge.start_date }}</td>
-                                <td>End:<br/>{{ challenge.end_date }}</td>
-                                <td>{% if participates %}Your progress: {{ progress }}%
+                                <td><span class="material-icons">location_on</span> {{ challenge.goal_distance }} km
+                                </td>
+                                <td><span
+                                        class="material-icons">schedule</span> {{ challenge.start_date }} {{ challenge.end_date }}
+                                </td>
+                                <td>{% if participates %}<span class="material-icons">equalizer</span> {{ progress }}%
                                     <div class="progress">
                                         <div class="determinate" style="width: {{ progress }}%"></div>
                                     </div>
@@ -27,7 +29,8 @@
                                     <a href="{% url 'challenge_join' challenge.id %}">Join</a>
                                 {% endif %}
                                 </td>
-                                <td><a href="{% url 'challenge_page' challenge.id %}">Info</a></td>
+                                <td><a href="{% url 'challenge_page' challenge.id %}"><span class="material-icons">info_outline</span></a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>

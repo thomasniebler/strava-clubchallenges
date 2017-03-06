@@ -3,10 +3,12 @@ from django.http.response import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
+from stravalib.client import Client
 from stravauth.models import StravaToken
 
 from strava_club_challenge.forms import ChallengeForm
 from strava_club_challenge.models import Challenge, Participation
+from strava_club_challenge.views.utils import get_token
 from .utils import get_progress, can_join_challenge
 
 
@@ -55,6 +57,9 @@ def challenge_leave(request, challenge_id):
 
 def challenge_create(request):
     challenge_form = ChallengeForm()  # initial={'club': list(Client(get_token(request.user).token).get_athlete_clubs())}
+    club_choices = [(0, club.name) for club in Client(get_token(request.user).token).get_athlete_clubs()]
+    challenge_form.fields["club"].choices = club_choices
+    challenge_form._meta.widgets["club"].choices = club_choices
     if request.method == "POST":
         challenge_form = ChallengeForm(request.POST)
         if challenge_form.is_valid():
