@@ -17,4 +17,6 @@ urlpatterns = [
                   url(r'^challenge/id/(?P<challenge_id>[0-9]+)$', views.challenge_page, name='challenge_page'),
                   url(r'^challenge/id/(?P<challenge_id>[0-9]+)/join$', views.challenge_join, name='challenge_join'),
                   url(r'^challenge/id/(?P<challenge_id>[0-9]+)/leave$', views.challenge_leave, name='challenge_leave'),
+
+                  url(r'^user/(?P<user_id>[0-9]+)$', views.user_page, name='user_page'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
