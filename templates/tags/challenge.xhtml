@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col s2">
+        <span class="material-icons">location_on</span>{{ challenge.goal_distance }} km
+    </div>
+    <div class="col s6">
+        <span class="material-icons">schedule</span>
+        <b>{{ challenge.start_date }}</b> until <b>{{ challenge.end_date }}</b>
+    </div>
+    <div class="col s2">
+        {% if participates %}
+            <span class="material-icons">equalizer</span> {{ progress }}%
+            <div class="progress">
+                <div class="determinate" style="width: {{ progress }}%"></div>
+            </div>
+        {% else %}
+            <a href="{% url 'challenge_join' challenge.id %}">Join</a>
+        {% endif %}
+    </div>
+    <div class="col s2">
+        <a href="{% url 'challenge_page' challenge.id %}"><span class="material-icons">info_outline</span></a>
+    </div>
+</div>
