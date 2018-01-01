@@ -4,6 +4,8 @@ from strava_club_challenge.models import Challenge
 
 
 class ChallengeForm(forms.ModelForm):
+    tmp = ["Hund"]
+
     class Meta:
         model = Challenge
         fields = ['goal_distance', 'start_date', 'end_date', 'club']
@@ -12,4 +14,4 @@ class ChallengeForm(forms.ModelForm):
                        attrs={"type": "date", "placeholder": "Start Date", "class": "datepicker"}),
                    'end_date': forms.DateInput(
                        attrs={"type": "date", "placeholder": "End Date", "class": "datepicker"}),
-                   'club': forms.Select(attrs={"placeholder": "Club"})}
+                   'club': forms.Select(attrs={"placeholder": "Club"}, choices=[("Hund", "Hund")])}

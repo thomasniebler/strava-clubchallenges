@@ -8,7 +8,7 @@ from .utils import get_token, get_progress, logged_in_user_participates_in
 
 
 def index(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return render(request, "index.xhtml")
     else:
         client = Client(get_token(request.user).token)
