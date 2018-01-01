@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="row">
-    <div class="col s12"><h1>{{ challenge.name }}</h1></div>
+        <h6>{{ challenge.name }}</h6>
     </div>
 
     <div class="row">
@@ -12,24 +12,28 @@
         This challenges lasts from {{ challenge.start_date }} until {{ challenge.end_date }}.
         Reach {{ challenge.goal_distance }} km to win this challenge!
     </div>
-    <div class="col s1">{% if participates %}
-        <a href="{% url 'challenge_leave' challenge_id=challenge.id %}" class="waves-effect waves-light btn">Leave</a>
-    {% else %}
-        <a href="{% url 'challenge_join' challenge_id=challenge.id %}" class="waves-effect waves-light btn">Join</a>
-    {% endif %}
+    <div class="col s1">
+        {% if participates %}
+            <a href="{% url 'challenge_leave' challenge_id=challenge.id %}"
+               class="waves-effect waves-light btn">Leave</a>
+        {% else %}
+            <a href="{% url 'challenge_join' challenge_id=challenge.id %}" class="waves-effect waves-light btn">Join</a>
+        {% endif %}
     </div>
     </div>
 
-    <h4>Participants</h4>
     <div class="row">
-    <div class="col s2">Name</div>
-    <div class="col s10">Progress</div>
+    <h4>Participants</h4>
     </div>
     {% if participants %}
+        <div class="row">
+        <div class="col s3">Name</div>
+        <div class="col s9">Progress</div>
+        </div>
         {% for participant, progress, completed in participants %}
             <div class="row">
-            <div class="col s2">{% user_avatar participant.participant.user %}</div>
-            <div class="col s10">{{ progress }}%
+            <div class="col s3">{% user_avatar participant.participant.user %}</div>
+            <div class="col s9">{{ progress }}%
                 <div class="progress">
                     <div class="determinate"
                          style="width: {% if not completed %} {{ progress }}% {% else %} 100% {% endif %}"></div>
@@ -42,5 +46,4 @@
         <div class="col s12"><h6>There are no participants</h6></div>
         </div>
     {% endif %}
-    </table>
 {% endblock %}

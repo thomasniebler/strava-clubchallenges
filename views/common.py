@@ -14,6 +14,8 @@ def index(request):
         client = Client(get_token(request.user).token)
         club_challenges = []
         for club in client.get_athlete_clubs():
+            club.clean_name = "".join(character for character in club.name.lower()
+                                      if ord(character) >= 97 and ord(character) <= 122)
             soon_ending_challenges = Challenge.objects.order_by('end_date').filter(
                 start_date__lt=timezone.now()).filter(club=club.name)[:3]
             progresses = [get_progress(request.user, challenge) for challenge in soon_ending_challenges]

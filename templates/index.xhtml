@@ -1,45 +1,51 @@
 {% extends 'base.xhtml' %}
 {% load static %}
+{% load tags %}
+
 
 {% block content %}
     {% if request.user.is_authenticated %}
-        <h1>Welcome, {{ request.user.firstname }}</h1>
+        <div class="row">
+            <div class="col">
+                <h1>Welcome, {{ request.user.firstname }}</h1>
 
-        Here you get an overview of all club challenges:
-
-        <ul class="collection with-header">
-        {% for club, challenges in clubs %}
-            <li class="collection-header avatar"><h4><img src="{{ club.profile_medium }}" class="circle"/><span
-                    class="title"> {{ club.name }}</span></h4></li>
-            <li class="collection-item">
+                Here you get an overview of your active club challenges:
+            </div>
+        </div>
+        <div class="row">
+        <div class="col s9">
+            {% for club, challenges in clubs %}
                 {% if challenges %}
-                    <table class="highlight">
+                    <div id="{{ club.clean_name }}" class="section scrollspy">
+                        <div id="{{ club.clean_name }}" class="row collection-header avatar">
+                            <h4><img src="{{ club.profile_medium }}" class="circle"/>
+                                <span class="title"> {{ club.name }}</span>
+                            </h4>
+                        </div>
                         {% for challenge, progress, participates in challenges %}
-                            <tr>
-                                <td><span class="material-icons">location_on</span> {{ challenge.goal_distance }} km
-                                </td>
-                                <td><span
-                                        class="material-icons">schedule</span> {{ challenge.start_date }} {{ challenge.end_date }}
-                                </td>
-                                <td>{% if participates %}<span class="material-icons">equalizer</span> {{ progress }}%
-                                    <div class="progress">
-                                        <div class="determinate" style="width: {{ progress }}%"></div>
-                                    </div>
-                                {% else %}
-                                    <a href="{% url 'challenge_join' challenge.id %}">Join</a>
-                                {% endif %}
-                                </td>
-                                <td><a href="{% url 'challenge_page' challenge.id %}"><span class="material-icons">info_outline</span></a>
-                                </td>
-                            </tr>
+                            {% challenge_info challenge progress participates %}
                         {% endfor %}
-                    </table>
-                {% else %}
-                    No challenges for this club.
+                    </div>
                 {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
+            {% endfor %}
+        </div>
+        <div class="col s3">
+            <div id="scrollingDiv">
+                <ul class="section table-of-contents">
+                    {% for club, challenges in clubs %}
+                        {% if challenges %}
+                            <li>
+                                <a href="#{{ club.clean_name }}">
+                                    <img src="{{ club.profile_small }}" class="circle"/>
+                                    <span class="title"> {{ club.name }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
     {% else %}
         <h1>Please log in.</h1>
 
@@ -47,4 +53,19 @@
         <a href="{% url 'login' %}"><img src="{% static 'img/connect_with_strava.png' %}"/></a>
         </div>
     {% endif %}
+    <script language="JavaScript">
+    $(document).ready(function () {
+        $('.scrollspy').scrollSpy();
+    });
+
+    $().ready(function () {
+        var $scrollingDiv = $("#scrollingDiv");
+
+        $(window).scroll(function () {
+            $scrollingDiv
+                    .stop()
+                    .animate({"marginTop": ($(window).scrollTop() )}, "fast");
+        });
+    });
+    </script>
 {% endblock %}
